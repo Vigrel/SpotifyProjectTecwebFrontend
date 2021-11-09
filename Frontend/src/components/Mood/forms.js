@@ -3,14 +3,19 @@ import "./forms.css";
 import axios from 'axios'
 
 export default function Mood() {
-  const [mood, setMood] = useState('Dropdown');
+  const [mood, setMood] = useState('Tell us ur mood');
   const [trackUrl, setTrackUrl] = useState('');
   const [features, setFeatures] = useState(null);
+  const [error, setError] = useState(null);
 
   async function postForm() {
     var input = document.getElementById("inputText").value;
     setTrackUrl(input)
-    
+    if (input == '') {
+      setError('Tell us what u are listening...')
+      return
+    }
+
     let response = await axios({
       method: 'post',
       url: 'http://localhost:8000/api/moods/',
@@ -41,7 +46,14 @@ export default function Mood() {
             <a href="#" onClick={() => setMood('😝 excited')}>excited</a>
           </div>
         </div>
-        <input id='inputText' type="url" className="track_url_input" placeholder='what u lis' />
+        {error == null ?
+          <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
+          :
+          <div className="error-box">
+            <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
+            <p className='error-text'>{error}</p>
+          </div>
+        }
         <button className="submit-btn" onClick={postForm}>Submit</button>
       </div>
 
