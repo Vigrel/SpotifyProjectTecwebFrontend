@@ -12,7 +12,12 @@ export default function Mood() {
     var input = document.getElementById("inputText").value;
     setTrackUrl(input)
     if (input == '') {
-      setError('Tell us what u are listening...')
+      setError('Please insert link...')
+    }
+    if (mood == 'Tell us ur mood') {
+      setMood('Please insert mood...')
+    }
+    if(mood == 'Please insert mood...' || error == 'Please insert link...'){
       return
     }
 
@@ -49,10 +54,7 @@ export default function Mood() {
         {error == null ?
           <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
           :
-          <div className="error-box">
-            <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
-            <p className='error-text'>{error}</p>
-          </div>
+          <input id='inputText' type="url" className="track_url_input_error" placeholder={error} />
         }
         <button className="submit-btn" onClick={postForm}>Submit</button>
       </div>
