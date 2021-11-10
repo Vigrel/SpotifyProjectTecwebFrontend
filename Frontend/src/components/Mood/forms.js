@@ -5,7 +5,6 @@ import axios from 'axios'
 export default function Mood() {
   const [mood, setMood] = useState('Tell us ur mood');
   const [trackUrl, setTrackUrl] = useState('');
-  const [features, setFeatures] = useState(null);
   const [error, setError] = useState(null);
 
   async function postForm() {
@@ -33,7 +32,8 @@ export default function Mood() {
         'Accept': 'application/json',
       }
     });
-    setFeatures(response.data)
+    const features = JSON.stringify(response.data)
+    localStorage.setItem('features', features)
   }
 
   return (
@@ -56,7 +56,15 @@ export default function Mood() {
           :
           <input id='inputText' type="url" className="track_url_input_error" placeholder={error} />
         }
-        <button className="submit-btn" onClick={postForm}>Submit</button>
+        {mood == 'Please insert mood...' || error == 'Please insert link...' ?
+          <button className="submit-btn" onClick={postForm}>
+            Submit
+          </button>
+          :
+          <button className="submit-btn" onClick={postForm}>
+            <a href='/a'>Submit</a>
+          </button>
+        }
       </div>
 
     </div>
