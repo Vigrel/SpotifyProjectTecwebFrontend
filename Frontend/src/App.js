@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter className="App">
         <Routes>
           <Route path='' element={<Mood />} />
-          <Route path='/a' element={<Features />} />
+          <Route path='api/moods/:id' element={<Features />} />
         </Routes>
       </BrowserRouter>
     </div>
