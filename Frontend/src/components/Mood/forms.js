@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./forms.css";
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Mood() {
   const [mood, setMood] = useState('Tell us ur mood');
-  const [error, setError] = useState(null);
-  const [features, setFeatures] = useState(0);
+  const [error, setError] = useState(false);
+  const [features, setFeatures] = useState(null);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (features != null) {
+      navigate(`/api/moods/${features.id}`)
+    }
+  }, [features]);
 
   async function postForm() {
-    var input = document.getElementById("inputText").value;
-    if (input == '') {
-      setError('Please insert link...')
-    }
-    if (mood == 'Tell us ur mood') {
-      setMood('Please insert mood...')
-    }
-    if (mood == 'Please insert mood...' || error == 'Please insert link...') {
-      return
-    }
+    var input = await document.getElementById("inputText").value;
+    // if (input == '') {
+    //   setError('Please insert link...')
+    // }
+    // if (mood == 'Tell us ur mood') {
+    //   setMood('Please insert mood...')
+    // }
+    // if (mood == 'Please insert mood...' || error == 'Please insert link...') {
+    //   return
+    // }
 
     let response = await axios({
       method: 'post',
@@ -32,9 +39,10 @@ export default function Mood() {
         'Accept': 'application/json',
       }
     });
+
     setFeatures(response.data)
-    console.log(features)
   }
+
 
   return (
     <div className='background'>
@@ -51,24 +59,34 @@ export default function Mood() {
             <a onClick={() => setMood('😝 excited')}>excited</a>
           </div>
         </div>
-        {error == null ?
+
+        {/* {error == null ?
           <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
           :
           <input id='inputText' type="url" className="track_url_input_error" placeholder={error} />
         }
+
         {mood == 'Please insert mood...' || error == 'Please insert link...' || mood == 'Tell us ur mood' ?
           <button className="submit-btn" onClick={postForm}>
             Submit
           </button>
           :
           <button className="submit-btn" onClick={postForm}>
-            <Link
-              to={{pathname: `/api/moods/${features.id}`}}
-            >
-              Submit
-            </Link>
+            Submit
           </button>
-        }
+        } */}
+
+        <input
+          id='inputText'
+          type="url"
+          className="track_url_input"
+          placeholder='u are listening...'
+        />
+
+        <button className="submit-btn" onClick={postForm}>
+          Submit
+        </button>
+
       </div>
 
     </div>

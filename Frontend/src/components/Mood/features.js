@@ -7,21 +7,23 @@ import axios from 'axios'
 
 export default function Features() {
     const id = useParams()
-    const [featuress, setFeatures] = useState([])
+    const [features, setFeatures] = useState([])
 
     async function getForm() {
         let response = await axios({
             method: 'GET',
-            url: 'http://localhost:8000/api/moods/' + id.id,
+            url: `http://localhost:8000/api/moods/${id.id}/`,
         });
-        setFeatures(response)
-        console.log(featuress)
+        setFeatures(response.data)
     }
 
     useEffect(() => {
         getForm()
-      }); 
-    let features = 0
+        // return () => {
+        //     setFeatures([]);
+        // };
+    }, []);
+
     return (
         <div className='background'>
             <div className="bars-group">
