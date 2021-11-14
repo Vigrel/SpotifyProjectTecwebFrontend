@@ -26,6 +26,7 @@ export default function Features() {
 
     return (
         <div className='background'>
+            <h1 className='app-name-features'>{features.album_name}, {features.track_name}, {features.artist_name}</h1>
             <div className="bars-group">
                 <div className='group'>
                     <p className='label'>acousticness</p>
