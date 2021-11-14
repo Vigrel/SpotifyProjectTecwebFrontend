@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./forms.css";
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
 
 export default function Mood() {
   const [mood, setMood] = useState('Tell us ur mood');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [features, setFeatures] = useState(null);
+  const [input, setInput] = useState('');
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -16,31 +17,31 @@ export default function Mood() {
   }, [features]);
 
   async function postForm() {
-    var input = await document.getElementById("inputText").value;
-    // if (input == '') {
-    //   setError('Please insert link...')
-    // }
-    // if (mood == 'Tell us ur mood') {
-    //   setMood('Please insert mood...')
-    // }
-    // if (mood == 'Please insert mood...' || error == 'Please insert link...') {
-    //   return
-    // }
+    if (input == '') {
+      setError('insert valid link...')
+    }
+    if (mood == 'Tell us ur mood') {
+      setMood('insert mood...')
+    }
 
-    let response = await axios({
-      method: 'post',
-      url: 'http://localhost:8000/api/moods/',
-      data: {
-        mood: mood,
-        track_url: input
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    });
-
-    setFeatures(response.data)
+    try {
+      let response = await axios({
+        method: 'post',
+        url: 'http://localhost:8000/api/moods/',
+        data: {
+          mood: mood,
+          track_url: input
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      });
+      setFeatures(response.data)
+    } catch {
+      setInput('')
+      setError('insert valid link...')
+    }
   }
 
 
@@ -60,37 +61,24 @@ export default function Mood() {
           </div>
         </div>
 
-        {/* {error == null ?
-          <input id='inputText' type="url" className="track_url_input" placeholder='u are listening...' />
-          :
-          <input id='inputText' type="url" className="track_url_input_error" placeholder={error} />
-        }
-
-        {mood == 'Please insert mood...' || error == 'Please insert link...' || mood == 'Tell us ur mood' ?
-          <button className="submit-btn" onClick={postForm}>
-            Submit
-          </button>
-          :
-          <button className="submit-btn" onClick={postForm}>
-            Submit
-          </button>
-        } */}
-
         <input
           id='inputText'
           type="url"
           className="track_url_input"
-          placeholder='u are listening...'
-        />
-
+          placeholder={
+            error == '' ?
+            'u are listening...'
+            :
+            'insert valid link...'
+          }
+          value={input}
+          onChange={input => setInput(input.target.value)} />
+          
         <button className="submit-btn" onClick={postForm}>
           Submit
         </button>
-
       </div>
 
     </div>
   );
 }
-
-// npm react-router-dom@5.2.0

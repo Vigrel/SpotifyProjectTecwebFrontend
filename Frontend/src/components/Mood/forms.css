@@ -3,9 +3,10 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #191414;
+  background-color: white;
   height: 100vh  ;
 }
+
 .app-name{
   color: #1DB954;
   font-size: 5rem;
@@ -15,8 +16,8 @@
 
 .inputs{
   height: 25%;
-    justify-content: space-evenly;
-    flex-direction: column;
+  justify-content: space-evenly;
+  flex-direction: column;
   }
   
   .track_url_input{
@@ -26,47 +27,26 @@
     font-family:cursive;   
     text-align: center;
     max-width: 67%;
+    border-color: transparent;
+    margin-top: 1rem;
+    box-shadow: rgba(119, 103, 103, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   }
 
-  .track_url_input_error{
-    padding: 7.5% 15% 7.5% 15%;
-    font-size: 16px;
-    border-radius: 25px;  
-    font-family:cursive;   
-    text-align: center;
-    max-width: 67%;
-    color: tomato;
-  }
-
-  .track_url_input_error::placeholder{
-    color: tomato;
-  }
-  
-  .error-text{
-    font-size: 0.75rem;
-    text-align: center;
-  }
-  
-  .error-box{
-    width: 100%;
-  }
-  
-  .submit-btn{
-    font-family:cursive;   
-    text-align: center;
-    margin-top: 2.5rem;
-    background-color: #cdf564;
-    color: #191414;
-    padding: 7.5% 15% 7.5% 15%;
-    font-size: 16px;
-    border-radius: 25px;
-    border-color: #191414;
-    width: 100%;
-   position: relative;
-   display: block;
-   outline: none;
-   transition: background-color 0.3s;
-  }
+.submit-btn{
+  font-family:cursive;   
+  text-align: center;
+  margin-top: 7.5rem;
+  background-color: #cdf564;
+  padding: 7.5% 15% 7.5% 15%;
+  font-size: 16px;
+  border-radius: 25px;
+  border-color: transparent;
+  width: 100%;
+  position: relative;
+  transition: background-color 0.3s;
+  border-color: transparent;
+  box-shadow: rgba(119, 103, 103, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
 
   .submit-btn > * {
     position: relative;
@@ -107,13 +87,13 @@
     font-family:cursive;   
     text-align: center;
     background-color: #1ED760;
-    color: #191414;
     padding: 7.5% 15% 7.5% 15%;
     margin-bottom: 0.5rem;
     font-size: 16px;
-    border-color: #191414;
+    border-color: transparent;
     border-radius: 25px;
     width: 100%;
+    box-shadow: rgba(119, 103, 103, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -131,7 +111,7 @@
   position: absolute;
   background-color: #f1f1f1;
   border-radius: 25px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: rgba(119, 103, 103, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 /* Links inside the dropdown */
@@ -146,7 +126,11 @@
 .dropdown-content a:hover {background-color: #ddd;}
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {display: block; }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
