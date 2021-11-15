@@ -27,7 +27,7 @@ export default function Mood() {
     try {
       let response = await axios({
         method: 'post',
-        url: 'http://localhost:8000/api/moods/',
+        url: 'https://moodspot.herokuapp.com/api/moods/',
         data: {
           mood: mood,
           track_url: input
