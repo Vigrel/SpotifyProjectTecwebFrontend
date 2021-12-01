@@ -8,6 +8,7 @@ export default function Mood() {
   const [error, setError] = useState('');
   const [features, setFeatures] = useState(null);
   const [input, setInput] = useState('');
+  const [message, setMessage] = useState('');
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +17,29 @@ export default function Mood() {
     }
   }, [features]);
 
-  async function postForm() {
+  
+  async function simuladoPF() {
+    let token = await axios({
+      method: 'GET',
+      url: 'https://enigmatic-bayou-56424.herokuapp.com/viniciusge/token',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    });
+    token = token.data.token
+
+    let message = await axios({
+      method: 'POST',
+      url: 'https://enigmatic-bayou-56424.herokuapp.com/viniciusge/message',
+      data: {
+        'token': token
+      }
+    });
+    setMessage(message.data.mensagem)
+  }
+  
+    async function postForm() {
     if (input == '') {
       setError('insert valid link...')
     }
@@ -44,10 +67,14 @@ export default function Mood() {
     }
   }
 
+  useEffect(() => {
+    simuladoPF()
+  }, [])
 
   return (
     <div className='background'>
       <h1 className='app-name'>SoundMood</h1>
+      <div style={{color:'white'}}>{message}</div>
       <div className='inputs' style={{ display: 'flex' }}>
         <div className="dropdown">
           <button className="dropbtn">{mood}</button>
