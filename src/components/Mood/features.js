@@ -12,7 +12,8 @@ export default function Features() {
     async function getForm() {
         let response = await axios({
             method: 'GET',
-            url: `https://moodspot.herokuapp.com/api/moods/${id.id}/`,
+            // url: `https://moodspot.herokuapp.com/api/moods/${id.id}/`,
+            url: `http://localhost:8000/api/moods/${id.id}/`,
         });
         setFeatures(response.data)
     }

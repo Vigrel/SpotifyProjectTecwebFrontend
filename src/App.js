@@ -17,3 +17,19 @@ function App() {
 }
 
 export default App;
+
+
+// function Home() {
+//   const [frase, setFrase] = useState("");
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const responseToken = await axios.get("https://enigmatic-bayou-56424.herokuapp.com/franciscoabvc/token");
+//       const response = await axios.post("https://enigmatic-bayou-56424.herokuapp.com/franciscoabvc/message", { token: responseToken.data.token })
+
+//       setFrase(response.data.mensagem);
+//     };
+
+//     fetchData()
+//   }, [])
+

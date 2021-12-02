@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Ad from './Ad.js'
 import "./forms.css";
 
 export default function Mood() {
@@ -8,6 +9,8 @@ export default function Mood() {
   const [error, setError] = useState('');
   const [features, setFeatures] = useState(null);
   const [input, setInput] = useState('');
+  const [ads, setAds] = useState([]);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +30,8 @@ export default function Mood() {
     try {
       let response = await axios({
         method: 'post',
-        url: 'https://moodspot.herokuapp.com/api/moods/',
+        // url: 'https://moodspot.herokuapp.com/api/moods/',
+        url: 'http://localhost:8000/api/moods/',
         data: {
           mood: mood,
           track_url: input
@@ -44,9 +48,29 @@ export default function Mood() {
     }
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const responseToken = await axios.get("https://tecweb-avaliacao-final-2021-2.herokuapp.com/franciscoabvc/token");
+      const ad_list = await axios.get("https://tecweb-avaliacao-final-2021-2.herokuapp.com/franciscoabvc/ads", { headers: { 'Authorization': `Token ${responseToken.data.token}` } });
+      setAds(ad_list.data);
+    };
+    fetchData()
+  }, [])
+
 
   return (
     <div className='background'>
+      <div>
+        {ads.map((ad) => (
+          <Ad key={`ad__${ad.id}`} headline={ad.headline} description={ad.description} img={ad.img}>
+            {ad.headline}
+            {ad.description}
+            {ad.img}
+          </Ad>
+        ))}
+      </div>
+
+
       <h1 className='app-name'>SoundMood</h1>
       <div className='inputs' style={{ display: 'flex' }}>
         <div className="dropdown">
@@ -67,13 +91,13 @@ export default function Mood() {
           className="track_url_input"
           placeholder={
             error == '' ?
-            'u are listening...'
-            :
-            'insert valid link...'
+              'u are listening...'
+              :
+              'insert valid link...'
           }
           value={input}
           onChange={input => setInput(input.target.value)} />
-          
+
         <button className="submit-btn" onClick={postForm}>
           Submit
         </button>
